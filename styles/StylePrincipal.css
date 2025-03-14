@@ -1,0 +1,97 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body{
+    background-image: url("https://res.cloudinary.com/dmppyhuqb/image/upload/v1741858608/DALL_E_2025-03-13_04.31.14_-_A_futuristic_depiction_of_automated_blueberries_growing_in_a_high-tech_farm._The_blueberries_are_attached_to_robotic_vines_with_mechanical_arms_harves_jfvbtz.webp");
+    background-repeat: no-repeat; /*No repite imagen*/
+    background-size: 25%; 
+    background-position: 30px center;  /*Centrar imagen*/
+    background-attachment: fixed; /*Imagen fija*/
+}
+
+
+body::before {
+    content: "";
+    width: 100vw;
+    height: 70px;
+    background-image: url("https://img.freepik.com/fotos-premium/fondo-textura-pared-cemento-azul_34836-2782.jpg?semt=ais_hybrid"); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+    position: absolute;  /* Fijamos el fondo para que siempre esté en la parte superior */
+    top: 0;
+    left: 0;
+    z-index: -1;  /* Asegura que esté detrás de .principal */
+}
+
+.principal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+    position: fixed; /* La barra de navegación también debe estar fija */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10; /* Lo coloca sobre el fondo */
+}
+
+
+.iconos {
+    display: flex;
+    align-items: center;
+    gap: 70px; /* Espaciado entre los elementos */
+}
+
+
+.btn_sesion {
+    display: flex; /* Asegura que el botón sea visible */
+    align-items: center;
+}
+
+#btn_SPrincipal {
+    float: right;
+    border: none; 
+  color: white; 
+  padding: 14px 28px; 
+  cursor: pointer; 
+  border-radius: 5px; 
+}
+
+.primary {background-color: #59C3FF;} 
+.primary:hover {background: #59D7FF;}
+
+
+
+/* Estilos para la pantalla flotante */
+.floating-window {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 900px;
+    height: 400px;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Estilos para el fondo oscuro */
+.overlay {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}

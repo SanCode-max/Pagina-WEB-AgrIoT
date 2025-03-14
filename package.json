@@ -1,7 +1,7 @@
 {
   "name": "pagina-web-agriot",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "Principal.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,6 +10,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "mysql": "^2.18.1"
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.13.0"
   }
 }
