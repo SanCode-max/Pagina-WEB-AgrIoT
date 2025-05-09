@@ -25,6 +25,7 @@ body::before {
     position: absolute;  /* Fijamos el fondo para que siempre esté en la parte superior */
     top: 0;
     left: 0;
+    filter: blur(3px); /* Desenfoque */;
     z-index: -1;  /* Asegura que esté detrás de .principal */
 }
 
@@ -42,11 +43,40 @@ body::before {
 }
 
 
+
 .iconos {
     display: flex;
     align-items: center;
     gap: 70px; /* Espaciado entre los elementos */
 }
+
+#btn_sensores{
+    float: left;
+    border: none; 
+  color: white; 
+  padding: 14px 28px; 
+  cursor: pointer; 
+  border-radius: 5px; 
+}
+
+#btn_desarrolladores{
+    float: left;
+    border: none; 
+  color: white; 
+  padding: 14px 28px; 
+  cursor: pointer; 
+  border-radius: 5px; 
+}
+
+#btn_cultivos{
+    float: left;
+    border: none; 
+  color: white; 
+  padding: 14px 28px; 
+  cursor: pointer; 
+  border-radius: 5px; 
+}
+
 
 
 .btn_sesion {
