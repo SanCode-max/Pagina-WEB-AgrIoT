@@ -9,6 +9,8 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 const session = require("express-session");
+require('dotenv').config();
+
 
 let connection = mysql.createConnection({
     host: "localhost",
@@ -99,6 +101,15 @@ app.post("/login", (req, res) => {
         });
     });
 });
+
+const session = require("express-session");
+
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } 
+}));
 
 
 // Configuración de encabezados de seguridad
