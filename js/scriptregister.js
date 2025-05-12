@@ -71,25 +71,29 @@ document.addEventListener("DOMContentLoaded",function(){
         const nombre = document.getElementById("nombre").value;
         const correo = document.getElementById("correo").value;
         const contraseña = document.getElementById("contraseña").value;
-    
-    
-    
-        console.log("Datos capturados:", { nombre, correo, contraseña });
-    
-        //Enviar los datos al servidor
-        fetch("http://localhost:5001/registrar",{
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({ nombre, correo, contraseña })
-        })
-        .then(response =>response.json())
-        .then(data =>{
-            alert(data.message);
-            document.getElementById("registroform").reset(); // Vacía el formulario
-        })
-        .catch(error =>{
-            console.error("Error: ",error);
-        });
+
+        const datos = { nombre, correo, contraseña };
+
+        try {
+            const respuesta = await fetch("http://localhost:5001/registrar", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(datos)
+            });
+
+            const resultado = await respuesta.json();
+
+            if (!respuesta.ok) {
+                // Mostrar error del servidor
+                alert(resultado.error);
+                return;
+            }
+
+            alert("Registro exitoso");
+        } catch (error) {
+            console.error("Error al enviar los datos:", error);
+            alert("Error de conexión con el servidor.");
+        }
     });
 
 

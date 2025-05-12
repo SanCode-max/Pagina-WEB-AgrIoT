@@ -5,22 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AGRIoT</title>
     <link rel="stylesheet" href="/Pagina-WEB-AgrIoT/styles/StylePrincipal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 
     
 </body></head>
 
 <main>
-    <div class="principal">
-        <div class="iconos">
-            <button id="btn_sensores" class="primary">Sensores</button>
-            <button id="btn_desarrolladores" class="primary">Sobre nosotros</button>
-            <button id="btn_cultivos" class="primary">Cultivos tratados</button>
-        </div>
-        <div class="btn_sesion">
-            <button id="btn_SPrincipal" class="primary">Iniciar Sesión </button>
-        </div>
-
+    <!-- Encabezado principal -->
+<div class="principal">
+  <div class="iconos">
+    <!-- Logo -->
+    <div class="logo">
+      <img src="/Pagina-WEB-AgrIoT/imagenes/logo.jpg" alt="Logo" class="imagen-circular">
+      <p>AGRIOT</p>
     </div>
+
+    <!-- Navegación -->
+    <a href="#" class="nav-button">Inicio</a>
+
+    <!-- Menú desplegable -->
+    <div class="despliegue">
+      <a href="#" class="nav-button flecha">Sobre nosotros</a>
+      <div class="tooltip-menu">
+        <a href="#creadores"><i class="fas fa-users"></i> Creadores</a>
+        <a href="#acerca"><i class="fas fa-info-circle"></i> Acerca del proyecto</a>
+        <a href="#cultivo"><i class="fas fa-seedling"></i> Cultivo a implementar</a>
+        <a href="#costos"><i class="fas fa-dollar-sign"></i> Costos</a>
+      </div>
+    </div>
+
+    <a href="#" class="nav-button">Blog</a>
+  </div>
+
+  <!-- Botón sesión -->
+  <div class="btn_sesion">
+    <button id="btn_SPrincipal" class="primary">Iniciar Sesión</button>
+  </div>
+</div>
+
+<!-- Contenedor principal -->
+<div class="container">
+
+  <!-- Sección título con fondo -->
+  <section class="titulo-con-fondo">
+    <div class="fondo-blur"></div>
+    <h1>AGRICULTURE IOT IN BLUEBERRY CULTIVATION FOR SUSTAINABLE PRODUCCIÓN</h1>
+    <p class="subtitulo">Tu solución integral para la agricultura inteligente</p>
+  </section>
+
+  <!-- Sección sabías que -->
+  <section class="sabias-que">
+    <img src="/Pagina-WEB-AgrIoT/imagenes/cultivo.jpg" alt="cultivo" class="imagen-cultivo">
+    <p class="texto-destacado">
+      ¿Sabías que la agricultura de precisión puede aumentar<br>
+      los rendimientos de los cultivos hasta en un 30%?
+    </p>
+  </section>
+
+</div>
+
+
 
     <!-- Contenedor para la pantalla flotante -->
     <div id="floatingWindow" class="floating-window">

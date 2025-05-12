@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded",function(){
             document.getElementById('floatingWindow').style.display = 'none';
             document.getElementById('overlay').style.display = 'none';
         }
-    });
+    });     
 
     
 

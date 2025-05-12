@@ -2,12 +2,13 @@ const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-
+const bcrypt = require("bcrypt"); // Asegúrate de importar bcrypt
 
 const app = express();
 app.use(cors()); 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+const session = require("express-session");
 
 let connection = mysql.createConnection({
     host: "localhost",
@@ -25,26 +26,44 @@ connection.connect(function (err) {
 });
 
 app.post("/registrar", (req, res) => {
-    console.log("Datos recibidos:", req.body);
-    const { nombre, correo, contraseña} = req.body;
+    const { nombre, correo, contraseña } = req.body;
 
     if (!nombre || !correo || !contraseña) {
         return res.status(400).json({ error: "Todos los campos son obligatorios" });
     }
 
-    const sql = "INSERT INTO usuarios (nombre, correo, contraseña) VALUES (?, ?, ?)";
-
-    connection.query(sql, [nombre, correo, contraseña], (err, result) => {
+    // Verificar si el correo ya existe
+    const verificarCorreoSQL = "SELECT * FROM usuarios WHERE correo = ?";
+    connection.query(verificarCorreoSQL, [correo], (err, resultados) => {
         if (err) {
-            console.error("Error al registrar datos:", err);
-            return res.status(500).json({ error: "Error al registrar los datos" });
+            console.error("Error al verificar correo:", err);
+            return res.status(500).json({ error: "Error al verificar el correo" });
         }
-        console.log("Registro exitoso:", result);
-        res.status(200).json({ message: "Registro exitoso" });
+
+        if (resultados.length > 0) {
+            return res.status(400).json({ error: "El correo ya está registrado" });
+        }
+
+        // Si no existe, encriptamos y registramos
+        bcrypt.hash(contraseña, 10, (err, hash) => {
+            if (err) {
+                console.error("Error al encriptar la contraseña:", err);
+                return res.status(500).json({ error: "Error al procesar la contraseña" });
+            }
+
+            const sql = "INSERT INTO usuarios (nombre, correo, contraseña) VALUES (?, ?, ?)";
+            connection.query(sql, [nombre, correo, hash], (err, result) => {
+                if (err) {
+                    console.error("Error al registrar datos:", err);
+                    return res.status(500).json({ error: "Error al registrar los datos" });
+                }
+                res.status(200).json({ message: "Registro exitoso" });
+            });
+        });
     });
 });
 
-//Autenticacion de usuario
+// Autenticación de usuario
 app.post("/login", (req, res) => {
     const { correo, contraseña } = req.body;
 
@@ -65,11 +84,19 @@ app.post("/login", (req, res) => {
 
         const usuario = results[0];
 
-        if (usuario.contraseña !== contraseña) {
-            return res.status(401).json({ error: "Correo o contraseña incorrectos" });
-        }
+        // Comparar la contraseña con el hash almacenado
+        bcrypt.compare(contraseña, usuario.contraseña, (err, resultado) => {
+            if (err) {
+                console.error("Error al comparar contraseñas:", err);
+                return res.status(500).json({ error: "Error en el servidor" });
+            }
 
-        res.status(200).json({ message: "Inicio de sesión exitoso", usuario });
+            if (!resultado) {
+                return res.status(401).json({ error: "Correo o contraseña incorrectos" });
+            }
+
+            res.status(200).json({ message: "Inicio de sesión exitoso", usuario });
+        });
     });
 });
 
@@ -91,5 +118,4 @@ app.use(express.static("public"));
 
 app.listen(5001, () => {
     console.log("Servidor corriendo en http://localhost:5001");
-    
 });
